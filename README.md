@@ -1,5 +1,3 @@
-# ULTIMATE-ANDROID-CRASHER
-a standard for testing or crashing devices.
 # ⚠️ THE ULTIMATE ANDROID CRASHER (Flagship Max-Saturate Edition)
 
 A high-intensity hardware and OS benchmark script designed to stress-test modern flagship Android devices (Snapdragon 8 Gen series, MediaTek Dimensity, Google Tensor). It operates as a dual-vector attack: flooding the device via a high-thread PC automation pipe while simultaneously triggering native internal loops to force the phone into a localized self-DDoS state.
