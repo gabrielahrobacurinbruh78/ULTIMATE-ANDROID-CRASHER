@@ -1,4 +1,4 @@
-# THE ULTIMATE ANDROID CRASHER (Absolute Apex Edition)
+# THE ULTIMATE ANDROID CRASHER
 
 A high-intensity hardware stress-test and architectural benchmark tool designed specifically for modern flagship mobile processors. This standalone executable implements a multi-channel execution pipe alongside recursive phone-side process replication loops to fully saturate core Linux kernel schedulers, Binder transaction spaces, and hardware interface buses.
 
@@ -52,3 +52,5 @@ This project operates without performance limiters or loop delays. The extreme m
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+## NEVER LEAVE IT FOR A LONG PERIOD
+this is for educational or for fun purpose it can be for fun dont play it for too long it might damage your testing device
